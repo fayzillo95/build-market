@@ -6,11 +6,11 @@ import { userRegisterStore } from '../store/SignStorage';
 
 function Sign() {
 
-    const [isRegister, setIsRegister] = useState(false)
+    const [isRegister, setIsRegister] = useState(true)
     const { registerData, setRegisterData } = userRegisterStore()
 
     return (
-        <div className=''>
+        <div className='border-2'>
             <Container maxWidth="sm" sx={{ transition: "all", transitionDuration: "1s" }}>
                 <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', justifyContent: "space-between", alignItems: 'center', minHeight: 522 }}>
                     <Typography component="h1" variant="h5">
@@ -18,9 +18,7 @@ function Sign() {
                             isRegister ? "Sign Accaunt" : "Create Accaunt"
                         }
                     </Typography>
-                    <Box component="form" noValidate sx={{ mt: 1, alignItems: "center" }}>
-                        {isRegister ? <SignAccaunt /> : <CreateAccaunt />}
-                    </Box>
+                    {isRegister ? <SignAccaunt /> : <CreateAccaunt />}
                     <Typography sx={{ textAlign: "center", "&:hover": { color: "red" }, cursor: "pointer" }}>
                         <Button onClick={() => setIsRegister(!isRegister)}>
                             {isRegister ? "I am not already accaunt" : "I am already registered "}

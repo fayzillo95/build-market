@@ -34,3 +34,9 @@ export const userLoginStore = create((set) => {
     }
 })
 
+export const emailStore = create((set) => {
+    return {
+        email : null,
+        setEmail : (email) => set({email})
+    }
+})

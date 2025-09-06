@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active{
+    @apply !underline-offset-4 underline shadow-lg 
+}
+
+div:dark{
+    @apply bg-gray-800
+}

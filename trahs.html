@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaflet Example</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 500px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h3>Tanlangan joy koordinatalari:</h3>
+  <p id="coords">Tanlanmagan</p>
+  <div id="map"></div>
+  <button><a href="/" id="otish" target="_blank">O'tish</a></button>  
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Xaritani boshlash
+    const map = L.map('map').setView([41.2995, 69.2401], 13); // Tashkent markaz
+
+    // OpenStreetMap tile (bepul)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    let marker;
+
+    // Click event
+    map.on('click', function(e) {
+      const lat = e.latlng.lat.toFixed(6);
+      const lng = e.latlng.lng.toFixed(6);
+
+      otish.href = "https://google.com/maps?q=" + lat + "," + lng  
+
+      document.getElementById("coords").innerText =
+        "Latitude: " + lat + " | Longitude: " + lng;
+
+      // Eski marker bo‘lsa olib tashlash
+      if (marker) {
+        map.removeLayer(marker);
+      }
+
+      // Yangi marker qo‘yish
+      marker = L.marker([lat, lng]).addTo(map);
+    });
+  </script>
+</body>
+</html>

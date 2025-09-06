@@ -6,21 +6,37 @@ import {
     InputAdornment,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { userRegisterStore } from "../../store/SignStorage";
+import { emailStore, userRegisterStore } from "../../store/SignStorage";
+import { useDarck } from "../../store/DarkModeStore";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function CreateAccaunt() {
     const { registerData, setRegisterData } = userRegisterStore();
-
+    const { isDark, setIsDark } = useDarck()
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const navigate = useNavigate()
+    const { email, setEmail } = emailStore()
 
     function handleRegister(e) {
         e.preventDefault();
-        console.log(registerData);
+        const { repeat_password, ...data } = registerData
+        axios.post("http://localhost:15975/api/auth/register", { ...data }).then((response) => {
+            setEmail(registerData.email)
+            console.log(response.data)
+            setRegisterData({
+                fullName: "",
+                email: "",
+                password: "",
+                repeat_password: ""
+            })
+            navigate("/otp")
+        }).catch(err => console.log(err))
     }
 
     return (
-        <form onSubmit={handleRegister}>
+        <form onSubmit={handleRegister} className={`${isDark ? "bg-violet-950" : "bg-slate-400"}`}>
             <TextField
                 margin="normal"
                 required
